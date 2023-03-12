@@ -80,17 +80,25 @@ jobs:
       - name: data storage
         run: |
           echo "zipname=proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip" >> $GITHUB_ENV
+          echo "date=$(date +%Y-%m-%d-%H-%M)" >> $GITHUB_ENV
 
       - name: vegso disztribucio osszeallitasa
         run: |
           zip -r ${{ env.zipname }} ./dist
 
       - name: release elkeszitese
-        uses: johnwbyrd/update-release@v1.0.0
+        uses: ncipollo/release-action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: ${{ env.zipname }}
-          release: "proxy-ffi-dist"
-          prerelease: false
-          message: "rovid leiras"
-          body: "hosszu leiras"
+          artifacts: ${{ env.zipname }}
+          makeLatest: true
+          artifactErrorsFailBuild: true
+          generateReleaseNotes: true
+          commit: main
+          tag: ${ env.date }}
+
+      - name: regi releasek kukaba tessek
+        uses: dev-drprasad/delete-older-releases@v0.2.0
+        with:
+          keep_latest: 5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
