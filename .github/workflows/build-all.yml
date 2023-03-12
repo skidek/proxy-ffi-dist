@@ -79,7 +79,7 @@ jobs:
 
       - name: vegso disztribucio osszeallitasa
         run: |
-          zip -r "./proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip ./dist"
+          zip -r "./proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip" ./dist
 
       - name: release elkeszitese
         uses: ncipollo/release-action@v1
