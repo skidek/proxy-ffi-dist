@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v3
         with: 
           submodules: recursive
+          fetch-depth: 0
 
       - name: java felporgetese
         uses: actions/setup-java@v3
@@ -79,9 +80,9 @@ jobs:
 
       - name: data storage
         run: |
-          echo "zipname=proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip" >> $GITHUB_ENV
-          echo "date=$(date +%Y-%m-%d-%H-%M)" >> $GITHUB_ENV
-          echo "releasename=proxy-ffi-dist | $(date +'%Y. %m. %d. %H:%M')" >> $GITHUB_ENV
+          TZ='Europe/Budapest' echo "zipname=proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip" >> $GITHUB_ENV
+          TZ='Europe/Budapest' echo "date=$(date +%Y-%m-%d-%H-%M)" >> $GITHUB_ENV
+          TZ='Europe/Budapest' echo "releasename=proxy-ffi-dist | $(date +'%Y. %m. %d. %H:%M')" >> $GITHUB_ENV
 
       - name: vegso disztribucio osszeallitasa
         run: |
