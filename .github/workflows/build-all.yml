@@ -92,7 +92,6 @@ jobs:
           artifacts: ${{ env.zipname }}
           makeLatest: true
           artifactErrorsFailBuild: true
-          generateReleaseNotes: true
           commit: main
           tag: ${{ env.date }}
           name: ${{ env.releasename }}
