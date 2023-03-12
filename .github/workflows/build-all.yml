@@ -87,6 +87,14 @@ jobs:
         run: |
           zip -r ${{ env.zipname }} ./dist
 
+      - name: release body elkeszitese
+        run: |
+          chmod +x ./generate-changelog.sh
+          ./generate-changelog.sh > body.md
+          echo "" >> body.md
+          echo "" >> body.md
+          echo "(az itt csatolt \`${{ env.zipname }}\` file tartalmazza azt amit keresel)" >> body.md
+
       - name: release elkeszitese
         uses: ncipollo/release-action@v1
         with:
@@ -97,6 +105,7 @@ jobs:
           commit: main
           tag: ${{ env.date }}
           name: ${{ env.releasename }}
+          bodyFile: "body.md"
 
       - name: regi releasek kukaba tessek
         uses: dev-drprasad/delete-older-releases@v0.2.0
