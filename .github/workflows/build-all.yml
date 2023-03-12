@@ -81,6 +81,7 @@ jobs:
         run: |
           echo "zipname=proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip" >> $GITHUB_ENV
           echo "date=$(date +%Y-%m-%d-%H-%M)" >> $GITHUB_ENV
+          echo "releasename=\"proxy-ffi-dist | $(date +'%Y. %m. %d. %H:%M)'\"" >> $GITHUB_ENV
 
       - name: vegso disztribucio osszeallitasa
         run: |
@@ -95,6 +96,7 @@ jobs:
           generateReleaseNotes: true
           commit: main
           tag: ${{ env.date }}
+          name: ${{ env.releasename }}
 
       - name: regi releasek kukaba tessek
         uses: dev-drprasad/delete-older-releases@v0.2.0
