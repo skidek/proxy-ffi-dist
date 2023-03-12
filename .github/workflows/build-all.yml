@@ -11,9 +11,80 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
+      - name: java felporgetese
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
       - name: checkout repos
         uses: actions/checkout@v3
         with: 
           submodules: recursive
+
+      - name: proxy epitese
+        run: |
+          cd ./mc-reverse-proxy
+          chmod +x ./gradlew
+          ./gradlew build
+          cd ..
+
+      - name: scripting epitese
+        run: |
+          cd ./reverse-proxy-kotlin-scripting
+          cp ../mc-reverse-proxy/standalone/build/libs/standalone-all.jar ./deps
+          chmod +x ./gradlew
+          ./gradlew build
+          cd ..
+
+      - name: scan-ffi epitese
+        run: |
+          cd ./scan-ffi
+          chmod +x ./gradlew
+          ./gradlew build
+          cd ..
+
+      - name: disztribucio mappa keszitese
+        run: |
+          mkdir dist
+          cd ./dist
+          cp ../mc-reverse-proxy/standalone/build/libs/standalone-all.jar .
+          mkdir addons
+          cp ../reverse-proxy-kotlin-scripting/build/libs/kotlin-scripting-*-all.jar ./addons
+          mkdir ./addons/scripts
+          cp ../kotlin-scriptek/* ./addons/scripts/
+          cp ../scan-ffi/build/libs/jdk17-test-1.0-SNAPSHOT.jar ./scan-ffi.jar
+          cd ..
+
+      - name: scan-ffi helper script irasa
+        run: |
+          cd ./dist
+          echo "java --enable-preview --enable-native-access=ALL-UNNAMED --add-modules jdk.incubator.foreign -jar scan-ffi.jar" >> launch-scan-ffi.bat
+          cp ./launch-scan-ffi.bat ./launch-scan-ffi.sh
+          echo "PAUSE" >> launch-scan-ffi.bat"
+          cd ..
+
+      - name: proxy helper script irasa
+        run: |
+          cd ./dist
+          echo "java -jar standalone-all.jar" >> launch-proxy.bat
+          cp ./launch-proxy.bat ./launch-proxy.sh
+          echo "PAUSE" >> launch-proxy.bat
+          cd ..
+
+      - name: vegso disztribucio osszeallitasa
+        run: |
+          zip -r "./proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip ./dist"
+
+      - name: release elkeszitese
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "proxy-ffi-dist-*.zip"
+          makeLatest: true
+          artifactErrorsFailBuild: true
+          generateReleaseNotes: true
