@@ -1,0 +1,12 @@
+[submodule "mc-reverse-proxy"]
+	path = mc-reverse-proxy
+	url = https://github.com/marvintheskid/mc-reverse-proxy
+[submodule "reverse-proxy-kotlin-scripting"]
+	path = reverse-proxy-kotlin-scripting
+	url = https://github.com/marvintheskid/reverse-proxy-kotlin-scripting
+[submodule "kotlin-scriptek"]
+	path = kotlin-scriptek
+	url = https://github.com/skidek/kotlin-scriptek
+[submodule "scan-ffi"]
+	path = scan-ffi
+	url = https://github.com/skidek/scan-ffi
