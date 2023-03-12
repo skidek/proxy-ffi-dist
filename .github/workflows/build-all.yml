@@ -15,17 +15,17 @@ jobs:
       contents: write
     
     steps:
-      - name: checkout repos
-        uses: actions/checkout@v3
-        with: 
-          submodules: recursive
-
       - name: java felporgetese
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
           cache: gradle
+
+      - name: checkout repos
+        uses: actions/checkout@v3
+        with: 
+          submodules: recursive
 
       - name: proxy epitese
         run: |
@@ -66,7 +66,7 @@ jobs:
           cd ./dist
           echo "java --enable-preview --enable-native-access=ALL-UNNAMED --add-modules jdk.incubator.foreign -jar scan-ffi.jar" >> launch-scan-ffi.bat
           cp ./launch-scan-ffi.bat ./launch-scan-ffi.sh
-          echo "PAUSE" >> launch-scan-ffi.bat"
+          echo "PAUSE" >> launch-scan-ffi.bat
           cd ..
 
       - name: proxy helper script irasa
