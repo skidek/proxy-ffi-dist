@@ -20,7 +20,7 @@ jobs:
         with: 
           submodules: recursive
 
-     - name: java felporgetese
+      - name: java felporgetese
         uses: actions/setup-java@v3
         with:
           distribution: temurin
