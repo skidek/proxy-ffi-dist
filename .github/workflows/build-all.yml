@@ -83,14 +83,11 @@ jobs:
 
       - name: datum
         id: datum
-        run: echo "::set-output name=date::$(date +%Y-%m-%d-%H-%M)"
+        run: echo "{date}={$(date +%Y-%m-%d-%H-%M)}" >> $GITHUB_STATE
 
       - name: release elkeszitese
-        uses: ncipollo/release-action@v1
+        uses: johnwbyrd/update-release@v1
         with:
-          artifacts: "proxy-ffi-dist-*.zip"
-          makeLatest: true
-          artifactErrorsFailBuild: true
-          generateReleaseNotes: true
-          commit: main
-          tag: ${{ steps.datum.outputs.date }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: "./proxy-ffi-dist-*.zip"
+          release: "proxy-ffi-dist"
