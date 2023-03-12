@@ -81,7 +81,7 @@ jobs:
         run: |
           echo "zipname=proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip" >> $GITHUB_ENV
           echo "date=$(date +%Y-%m-%d-%H-%M)" >> $GITHUB_ENV
-          echo "releasename=\"proxy-ffi-dist | $(date +'%Y. %m. %d. %H:%M)'\"" >> $GITHUB_ENV
+          echo "releasename=\"proxy-ffi-dist | $(date +'%Y. %m. %d. %H:%M')\"" >> $GITHUB_ENV
 
       - name: vegso disztribucio osszeallitasa
         run: |
