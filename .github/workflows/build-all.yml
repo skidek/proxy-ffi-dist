@@ -15,17 +15,17 @@ jobs:
       contents: write
     
     steps:
-      - name: java felporgetese
+      - name: checkout repos
+        uses: actions/checkout@v3
+        with: 
+          submodules: recursive
+
+     - name: java felporgetese
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
           cache: gradle
-
-      - name: checkout repos
-        uses: actions/checkout@v3
-        with: 
-          submodules: recursive
 
       - name: proxy epitese
         run: |
