@@ -3,8 +3,8 @@
 readarray -t SUBMODULES <<< `git config --file .gitmodules --get-regexp path | awk '{ print $2 }'`
 readarray -t SUBMODULE_URLS <<< `git config --file .gitmodules --get-regexp url | awk '{ print $2 }'`
 
-SINCE=`git log -1 --format=%aI`
-SINCE_TITLE=`git log -1 --format=%ai`
+SINCE=`git log --tags --simplify-by-decoration --pretty="format:%aI" | head -n1`
+SINCE_TITLE=`git log --tags --simplify-by-decoration --pretty="format:%ai" | head -n1`
 
 count=${#SUBMODULES[@]}
 
