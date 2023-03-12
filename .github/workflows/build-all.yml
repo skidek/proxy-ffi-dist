@@ -62,27 +62,17 @@ jobs:
           cp ../scan-ffi/build/libs/jdk17-test-1.0-SNAPSHOT.jar ./scan-ffi.jar
           cd ..
 
-      - name: scan-ffi helper script irasa
+      - name: helper scriptek masolasa
         run: |
           cd ./dist
-          echo "java --enable-preview --enable-native-access=ALL-UNNAMED --add-modules jdk.incubator.foreign -jar scan-ffi.jar" >> launch-scan-ffi.bat
-          cp ./launch-scan-ffi.bat ./launch-scan-ffi.sh
-          echo "PAUSE" >> launch-scan-ffi.bat
-          cd ..
-
-      - name: proxy helper script irasa
-        run: |
-          cd ./dist
-          echo "java -jar standalone-all.jar" >> launch-proxy.bat
-          cp ./launch-proxy.bat ./launch-proxy.sh
-          echo "PAUSE" >> launch-proxy.bat
+          cp ../helper-scripts/* .
           cd ..
 
       - name: data storage
         run: |
-          TZ='Europe/Budapest' echo "zipname=proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip" >> $GITHUB_ENV
-          TZ='Europe/Budapest' echo "date=$(date +%Y-%m-%d-%H-%M)" >> $GITHUB_ENV
-          TZ='Europe/Budapest' echo "releasename=proxy-ffi-dist | $(date +'%Y. %m. %d. %H:%M')" >> $GITHUB_ENV
+          echo "zipname=proxy-ffi-dist-$(TZ='Europe/Budapest' date +%Y-%m-%d-%H-%M).zip" >> $GITHUB_ENV
+          echo "date=$(TZ='Europe/Budapest' date +%Y-%m-%d-%H-%M)" >> $GITHUB_ENV
+          echo "releasename=proxy-ffi-dist | $(TZ='Europe/Budapest' date +'%Y. %m. %d. %H:%M')" >> $GITHUB_ENV
 
       - name: vegso disztribucio osszeallitasa
         run: |
