@@ -79,7 +79,7 @@ jobs:
 
       - name: data storage
         run: |
-          echo "{zipname}={proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip" >> $GITHUB_STATE
+          echo "zipname=proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip" >> $GITHUB_ENV
 
       - name: vegso disztribucio osszeallitasa
         run: |
