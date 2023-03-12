@@ -77,17 +77,17 @@ jobs:
           echo "PAUSE" >> launch-proxy.bat
           cd ..
 
+      - name: data storage
+        run: |
+          echo "{zipname}={proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip" >> $GITHUB_STATE
+
       - name: vegso disztribucio osszeallitasa
         run: |
-          zip -r "./proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip" ./dist
-
-      - name: datum
-        id: datum
-        run: echo "{date}={$(date +%Y-%m-%d-%H-%M)}" >> $GITHUB_STATE
+          zip -r ${{ env.zipname }} ./dist
 
       - name: release elkeszitese
         uses: johnwbyrd/update-release@v1.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          files: "./proxy-ffi-dist-*.zip"
+          files: ${{ env.zipname }}
           release: "proxy-ffi-dist"
