@@ -81,6 +81,10 @@ jobs:
         run: |
           zip -r "./proxy-ffi-dist-$(date +%Y-%m-%d-%H-%M).zip" ./dist
 
+      - name: datum
+        id: datum
+        run: echo "::set-output name=date::$(date +%Y-%m-%d-%H-%M)"
+
       - name: release elkeszitese
         uses: ncipollo/release-action@v1
         with:
@@ -88,3 +92,5 @@ jobs:
           makeLatest: true
           artifactErrorsFailBuild: true
           generateReleaseNotes: true
+          commit: main
+          tag: ${{ steps.datum.outputs.date }}
