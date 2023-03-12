@@ -88,6 +88,7 @@ jobs:
       - name: release elkeszitese
         uses: johnwbyrd/update-release@v1.0.0
         with:
+          prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
           files: ${{ env.zipname }}
           release: "proxy-ffi-dist"
